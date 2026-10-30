@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GREENBADBUNNY TV - Streaming, Software & Juegos</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gb: {
+                            green: '#10b981',
+                            neon: '#00ff66',
+                            dark: '#050b07',
+                            cardDark: '#0e1a12',
+                            gold: '#f59e0b',
+                            emerald: '#059669',
+                            purple: '#8b5cf6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            transition: background-color 0.3s, color 0.3s;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        /* Modos Oscuro y Claro personalizados */
+        .dark .bg-main-gradient {
+            background: radial-gradient(circle at 50% -10%, rgba(0, 255, 102, 0.12) 0%, rgba(5, 11, 7, 1) 70%);
+        }
+        .dark .glass-card {
+            background: rgba(14, 26, 18, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 255, 102, 0.18);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+        }
+        .dark .glass-nav {
+            background: rgba(5, 11, 7, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 102, 0.15);
+        }
+
+        html:not(.dark) .bg-main-gradient {
+            background: radial-gradient(circle at 50% -10%, rgba(16, 185, 129, 0.12) 0%, rgba(248, 250, 252, 1) 70%);
+        }
+        html:not(.dark) .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(16, 185, 129, 0.22);
+            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.08);
+        }
+        html:not(.dark) .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        /* Animación de pulso para botón flotante de WhatsApp */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+            50% { box-shadow: 0 0 0 18px rgba(34, 197, 94, 0); }
+        }
+        .whatsapp-float {
+            animation: pulse-glow 2s infinite;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(5, 11, 7, 0.1); }
+        ::-webkit-scrollbar-thumb { background: rgba(34, 197, 94, 0.4); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(34, 197, 94, 0.7); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-gb-dark dark:text-slate-100 min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white transition-colors duration-300">
+
+    <!-- Glowing Background Effect -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-64 bg-emerald-500/10 blur-[120px] pointer-events-none z-0"></div>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 glass-nav transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative z-10">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500 via-green-400 to-amber-400 p-0.5 shadow-lg shadow-emerald-500/25 group-hover:scale-105 transition-transform">
+                    <div class="w-full h-full bg-gb-dark rounded-[14px] flex items-center justify-center">
+                        <i class="fa-solid fa-play text-emerald-400 text-lg group-hover:text-emerald-300"></i>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl sm:text-2xl font-black tracking-tight font-heading text-slate-900 dark:text-white flex items-center gap-1">
+                        GREENBADBUNNY <span class="bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">TV</span>
+                    </span>
+                    <span class="text-[10px] tracking-widest font-semibold uppercase text-emerald-600 dark:text-emerald-400 -mt-1">Streaming • Software • Games</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                <a href="#catalogo" class="hover:text-emerald-500 transition-colors">Catálogo</a>
+                <a href="#ventajas" class="hover:text-emerald-500 transition-colors">Garantía 24/7</a>
+                <a href="#faq" class="hover:text-emerald-500 transition-colors">Preguntas Frecuentes</a>
+            </nav>
+
+            <!-- Actions (Theme Toggle & Cart) -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Theme Button -->
+                <button onclick="toggleTheme()" title="Cambiar Tema (Oscuro / Claro)" class="p-2.5 rounded-xl bg-slate-200/80 dark:bg-slate-800/80 text-slate-700 dark:text-amber-300 border border-slate-300 dark:border-slate-700/60 hover:scale-105 transition-all">
+                    <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
+                </button>
+
+                <!-- WhatsApp Direct -->
+                <a href="https://wa.me/51936467256?text=Hola%20GREENBADBUNNY%20TV,%20deseo%20comprar" target="_blank" title="WhatsApp Oficial" class="hidden sm:flex p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                </a>
+
+                <!-- Cart Button -->
+                <button onclick="toggleCartDrawer()" class="relative p-2.5 text-slate-800 dark:text-white bg-emerald-500/10 dark:bg-emerald-500/20 hover:bg-emerald-500/30 rounded-xl border border-emerald-500/30 transition flex items-center gap-2">
+                    <i class="fa-solid fa-cart-shopping text-emerald-600 dark:text-emerald-400 text-lg"></i>
+                    <span class="hidden sm:inline font-bold text-sm">Carrito</span>
+                    <span id="cart-badge" class="absolute -top-1.5 -right-1.5 bg-rose-500 text-white text-xs font-black w-5 h-5 rounded-full flex items-center justify-center hidden shadow-md">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Section -->
+    <main class="flex-grow bg-main-gradient relative z-10">
+        
+        <!-- Hero Section -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs sm:text-sm font-bold mb-6 backdrop-blur-md shadow-sm">
+                <i class="fa-solid fa-headset text-amber-500 dark:text-amber-400 animate-pulse"></i> Soporte Activo 24/7 y Pedidos en WhatsApp (+51 936 467 256)
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-black font-heading text-slate-900 dark:text-white tracking-tight leading-tight max-w-5xl mx-auto mb-6">
+                Streaming, Software y <span class="bg-gradient-to-r from-emerald-500 via-green-400 to-amber-400 bg-clip-text text-transparent">Videojuegos al Mejor Precio</span>
+            </h1>
+
+            <p class="text-base sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8 leading-relaxed font-normal">
+                Las mejores plataformas digitales, software original y títulos de videojuegos con garantía permanente y entrega inmediata.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#catalogo" class="px-8 py-4 bg-gradient-to-r from-emerald-600 to-green-500 hover:from-emerald-500 hover:to-green-400 text-white font-extrabold rounded-2xl shadow-lg shadow-emerald-500/25 transition transform hover:-translate-y-0.5 flex items-center gap-2 text-sm sm:text-base">
+                    <i class="fa-solid fa-fire text-amber-300"></i> Ver Catálogo Completo
+                </a>
+                <a href="https://wa.me/51936467256?text=Hola%20GREENBADBUNNY%20TV,%20deseo%20m%C3%A1s%20informaci%C3%B3n" target="_blank" class="px-8 py-4 bg-slate-900 text-white dark:bg-slate-800 dark:text-emerald-400 font-bold rounded-2xl border border-slate-700 hover:bg-slate-800 transition flex items-center gap-2 text-sm sm:text-base shadow-md">
+                    <i class="fa-brands fa-whatsapp text-emerald-400 text-xl"></i> Atenci&oacute;n por WhatsApp
+                </a>
+            </div>
+        </section>
+
+        <!-- Catalog Section -->
+        <section id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl font-black font-heading text-slate-900 dark:text-white">Nuestro Catálogo</h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Encuentra tus cuentas favoritas y contáctanos por WhatsApp para la entrega.</p>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="flex flex-wrap items-center gap-2 bg-slate-200/80 dark:bg-slate-900/90 p-1.5 rounded-2xl border border-slate-300 dark:border-slate-800">
+                    <button onclick="filterCategory('all')" class="filter-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition bg-emerald-600 text-white" data-cat="all">Todas</button>
+                    <button onclick="filterCategory('streaming')" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition" data-cat="streaming">Streaming TV</button>
+                    <button onclick="filterCategory('software')" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition" data-cat="software">Software & Licencias</button>
+                    <button onclick="filterCategory('games')" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition" data-cat="games">Videojuegos</button>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="relative max-w-md mb-8">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" id="search-input" onkeyup="searchAccounts()" placeholder="Buscar producto (ej. Netflix, Office 365, Minecraft)..." class="w-full pl-11 pr-4 py-3.5 bg-white dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 rounded-2xl text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-emerald-500 transition text-sm shadow-sm">
+            </div>
+
+            <!-- Product Cards Grid -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic products rendered by JS -->
+            </div>
+        </section>
+
+        <!-- Guarantee Section with 24/7 Support -->
+        <section id="ventajas" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-200 dark:border-slate-900">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-black font-heading text-slate-900 dark:text-white">¿Por qué elegir GREENBADBUNNY TV?</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm mt-2">Marcamos la diferencia frente a otros proveedores.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-3xl">
+                    <div class="w-12 h-12 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-headset text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Soporte Continuo 24/7</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">A diferencia de otros lugares donde no responden tras el pago, nosotros te brindamos atención rápida a cualquier hora del día.</p>
+                </div>
+                <div class="glass-card p-6 rounded-3xl">
+                    <div class="w-12 h-12 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-shield-halved text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Garantía Activa</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Respaldamos el tiempo completo que adquieres de cada plataforma o suscripción de software.</p>
+                </div>
+                <div class="glass-card p-6 rounded-3xl">
+                    <div class="w-12 h-12 bg-amber-500/10 text-amber-500 rounded-2xl flex items-center justify-center text-xl font-bold mb-4">
+                        <i class="fa-solid fa-bolt text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Entrega Rápida y Segura</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Tus credenciales o licencias llegan directamente a tu WhatsApp en pocos minutos tras confirmar tu pedido.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-200 dark:border-slate-900">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-black font-heading text-slate-900 dark:text-white">Preguntas Frecuentes (FAQ)</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm mt-2">Resolvemos todas tus dudas antes de comprar.</p>
+            </div>
+            <div class="space-y-4">
+                <details class="glass-card rounded-2xl p-5 cursor-pointer group">
+                    <summary class="font-bold text-slate-900 dark:text-white flex justify-between items-center text-sm sm:text-base">
+                        ¿Cuánto tiempo demora la entrega de mi servicio?
+                        <i class="fa-solid fa-chevron-down text-emerald-500 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-3 leading-relaxed">
+                        La entrega es casi inmediata. Una vez coordinado tu pedido por WhatsApp (+51 936 467 256), la activación de tu cuenta o licencia se realiza en un lapso estimado de <strong>5 a 15 minutos</strong>.
+                    </p>
+                </details>
+
+                <details class="glass-card rounded-2xl p-5 cursor-pointer group">
+                    <summary class="font-bold text-slate-900 dark:text-white flex justify-between items-center text-sm sm:text-base">
+                        ¿Cómo recibo las cuentas o licencias que compre?
+                        <i class="fa-solid fa-chevron-down text-emerald-500 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-3 leading-relaxed">
+                        Todos los accesos (correo, clave, perfil asignado, PIN o llave de activación) se envían de manera 100% privada y detallada mediante nuestro chat oficial de WhatsApp.
+                    </p>
+                </details>
+
+                <details class="glass-card rounded-2xl p-5 cursor-pointer group">
+                    <summary class="font-bold text-slate-900 dark:text-white flex justify-between items-center text-sm sm:text-base">
+                        ¿Office 365 y Windows se venden juntos o por separado?
+                        <i class="fa-solid fa-chevron-down text-emerald-500 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-3 leading-relaxed">
+                        Son licencias independientes. Puedes comprar la suscripción de Office 365 por S/ 30 o la licencia de activación de Windows por S/ 30 de forma totalmente separada según lo que necesites.
+                    </p>
+                </details>
+
+                <details class="glass-card rounded-2xl p-5 cursor-pointer group">
+                    <summary class="font-bold text-slate-900 dark:text-white flex justify-between items-center text-sm sm:text-base">
+                        ¿Puedo solicitar cualquier videojuego aunque no esté en el catálogo?
+                        <i class="fa-solid fa-chevron-down text-emerald-500 group-open:rotate-180 transition-transform"></i>
+                    </summary>
+                    <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-3 leading-relaxed">
+                        ¡Por supuesto! En la sección de videojuegos disponemos de la opción "Cualquier Videojuego". Puedes consultarnos directamente por interno en WhatsApp sobre cualquier título de PC o consola que estés buscando.
+                    </p>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 dark:border-slate-900 bg-white dark:bg-gb-dark py-10 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center text-slate-950 font-black text-sm">
+                    <i class="fa-solid fa-play"></i>
+                </div>
+                <div>
+                    <span class="text-base font-black font-heading text-slate-900 dark:text-white">GREENBADBUNNY TV</span>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">© Todos los derechos reservados.</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-6 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                <a href="#catalogo" class="hover:text-emerald-500 transition">Catálogo</a>
+                <a href="#faq" class="hover:text-emerald-500 transition">Preguntas Frecuentes</a>
+                <a href="https://wa.me/51936467256" target="_blank" class="hover:text-emerald-500 transition flex items-center gap-1.5 font-bold text-emerald-600 dark:text-emerald-400">
+                    <i class="fa-brands fa-whatsapp text-base"></i> +51 936 467 256
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Navigation Bar -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-950/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-6 py-2.5 flex justify-around items-center text-xs">
+        <a href="#catalogo" class="flex flex-col items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-emerald-500">
+            <i class="fa-solid fa-store text-base"></i>
+            <span>Catálogo</span>
+        </a>
+        <button onclick="toggleCartDrawer()" class="flex flex-col items-center gap-1 text-slate-600 dark:text-slate-400 hover:text-emerald-500 relative">
+            <i class="fa-solid fa-cart-shopping text-base"></i>
+            <span>Carrito</span>
+            <span id="mobile-cart-badge" class="absolute -top-1 -right-2 bg-rose-500 text-white text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center hidden">0</span>
+        </button>
+        <a href="https://wa.me/51936467256?text=Hola%20GREENBADBUNNY%20TV,%20deseo%20comprar" target="_blank" class="flex flex-col items-center gap-1 text-emerald-600 dark:text-emerald-400 font-bold">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>WhatsApp</span>
+        </a>
+    </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/51936467256?text=Hola%20GREENBADBUNNY%20TV,%20deseo%20comprar%20un%20servicio" target="_blank" title="Contactar por WhatsApp" class="whatsapp-float fixed bottom-20 md:bottom-8 right-6 z-40 w-14 h-14 bg-emerald-500 hover:bg-emerald-400 text-white rounded-full flex items-center justify-center text-2xl shadow-2xl transition transform hover:scale-110">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Cart Modal -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-sm transition-opacity" onclick="toggleCartDrawer()"></div>
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-100 flex flex-col shadow-2xl">
+                <!-- Header -->
+                <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-cart-shopping text-emerald-500 text-xl"></i>
+                        <h3 class="text-lg font-black font-heading text-slate-900 dark:text-white">Tu Pedido</h3>
+                    </div>
+                    <button onclick="toggleCartDrawer()" class="text-slate-400 hover:text-slate-900 dark:hover:text-white p-2">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Items List -->
+                <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4">
+                    <!-- Dynamic Cart -->
+                </div>
+
+                <!-- Footer -->
+                <div class="p-6 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 space-y-4">
+                    <div class="flex justify-between text-base font-bold text-slate-900 dark:text-white">
+                        <span>Total estimado:</span>
+                        <span id="cart-total" class="text-emerald-600 dark:text-emerald-400 font-black text-xl">S/. 0.00</span>
+                    </div>
+                    <button id="checkout-btn" onclick="sendCartToWhatsApp()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-2xl shadow-lg shadow-emerald-600/30 transition flex items-center justify-center gap-2 text-sm sm:text-base">
+                        <i class="fa-brands fa-whatsapp text-xl"></i> Enviar Pedido a WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Purchase Modal -->
+    <div id="quick-buy-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onclick="closeQuickBuyModal()"></div>
+        <div class="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl z-10">
+            <button onclick="closeQuickBuyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-900 dark:hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="quick-buy-content">
+                <!-- Rendered dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-24 md:bottom-8 left-6 z-50 bg-slate-900 text-white border border-slate-700 px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-message" class="text-xs sm:text-sm font-semibold">Notificación</span>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        const whatsappNumber = '51936467256';
+        let cart = JSON.parse(localStorage.getItem('gb_cart_v2')) || [];
+        let currentCategory = 'all';
+
+        // Complete Catalog
+        const products = [
+            // STREAMING
+            {
+                id: 'netflix',
+                name: 'Netflix',
+                category: 'streaming',
+                price: 15.00,
+                badge: '1 Perfil / Mes',
+                badgeColor: 'bg-rose-500/10 text-rose-500 border-rose-500/20',
+                icon: 'fa-solid fa-film text-rose-500',
+                bgGradient: 'from-rose-950/20 to-transparent',
+                features: ['Calidad Ultra HD 4K', '1 Perfil Privado con PIN', 'Soporte 30 días']
+            },
+            {
+                id: 'star-plus',
+                name: 'Star Plus',
+                category: 'streaming',
+                price: 12.00,
+                badge: '1 Mes',
+                badgeColor: 'bg-amber-500/10 text-amber-500 border-amber-500/20',
+                icon: 'fa-solid fa-star text-amber-500',
+                bgGradient: 'from-amber-950/20 to-transparent',
+                features: ['Deportes ESPN en Vivo', 'Películas & Series', 'Perfil Privado']
+            },
+            {
+                id: 'prime-video',
+                name: 'Prime Video',
+                category: 'streaming',
+                price: 12.00,
+                badge: '1 Mes',
+                badgeColor: 'bg-sky-500/10 text-sky-500 border-sky-500/20',
+                icon: 'fa-solid fa-play text-sky-500',
+                bgGradient: 'from-sky-950/20 to-transparent',
+                features: ['Catálogo Amazon', 'Soporte Completo', 'Calidad HD / 4K']
+            },
+            {
+                id: 'disney-plus',
+                name: 'Disney Plus',
+                category: 'streaming',
+                price: 15.00,
+                badge: '1 Mes',
+                badgeColor: 'bg-blue-500/10 text-blue-500 border-blue-500/20',
+                icon: 'fa-solid fa-wand-magic-sparkles text-blue-500',
+                bgGradient: 'from-blue-950/20 to-transparent',
+                features: ['Marvel, Star Wars, Pixar', 'Perfil Privado', 'Sin interrupciones']
+            },
+            {
+                id: 'paramount-plus',
+                name: 'Paramount Plus',
+                category: 'streaming',
+                price: 10.00,
+                badge: '1 Mes',
+                badgeColor: 'bg-indigo-500/10 text-indigo-500 border-indigo-500/20',
+                icon: 'fa-solid fa-mountain text-indigo-500',
+                bgGradient: 'from-indigo-950/20 to-transparent',
+                features: ['Cine y Series Exclusivas', 'Deportes y Eventos', 'Calidad HD']
+            },
+            {
+                id: 'spotify',
+                name: 'Spotify',
+                category: 'streaming',
+                price: 15.00,
+                badge: '1 Mes Premium',
+                badgeColor: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
+                icon: 'fa-brands fa-spotify text-emerald-500',
+                bgGradient: 'from-emerald-950/20 to-transparent',
+                features: ['Música Sin Anuncios', 'Descarga de Canciones', 'Activación Directa']
+            },
+            {
+                id: 'youtube-premium',
+                name: 'YouTube Premium',
+                category: 'streaming',
+                price: 15.00,
+                badge: '1 Mes',
+                badgeColor: 'bg-red-500/10 text-red-500 border-red-500/20',
+                icon: 'fa-brands fa-youtube text-red-500',
+                bgGradient: 'from-red-950/20 to-transparent',
+                features: ['Sin Anuncios en Video', 'YouTube Music Incluido', 'A tu Correo']
+            },
+            {
+                id: 'crunchyroll',
+                name: 'Crunchyroll',
+                category: 'streaming',
+                price: 8.00,
+                badge: '1 Mes Fan',
+                badgeColor: 'bg-orange-500/10 text-orange-500 border-orange-500/20',
+                icon: 'fa-solid fa-dragon text-orange-500',
+                bgGradient: 'from-orange-950/20 to-transparent',
+                features: ['Anime en HD', 'Simulcasts al Día', 'Sin publicidad']
+            },
+            {
+                id: 'hbo-max',
+                name: 'HBO Max',
+                category: 'streaming',
+                price: 12.00,
+                badge: '1 Mes',
+                badgeColor: 'bg-purple-500/10 text-purple-500 border-purple-500/20',
+                icon: 'fa-solid fa-clapperboard text-purple-500',
+                bgGradient: 'from-purple-950/20 to-transparent',
+                features: ['Series & Películas HBO/DC', 'Calidad Ultra HD 4K', 'Perfil Privado']
+            },
+            {
+                id: 'iptv',
+                name: 'IPTV',
+                category: 'streaming',
+                price: 15.00,
+                badge: '1 Mes',
+                badgeColor: 'bg-teal-500/10 text-teal-500 border-teal-500/20',
+                icon: 'fa-solid fa-tv text-teal-500',
+                bgGradient: 'from-teal-950/20 to-transparent',
+                features: ['Canales de TV en Vivo', 'Deportes & Eventos HD', 'Películas & Series VOD']
+            },
+            {
+                id: 'flujo-tv',
+                name: 'Flujo TV',
+                category: 'streaming',
+                price: 18.00,
+                badge: '3 Dispositivos',
+                badgeColor: 'bg-amber-500/10 text-amber-500 border-amber-500/20',
+                icon: 'fa-solid fa-satellite-dish text-amber-500',
+                bgGradient: 'from-amber-950/20 to-transparent',
+                features: ['3 Pantallas Simultáneas', 'Aplicación Ultra Rápida', 'Liga 1 y Deportes']
+            },
+            {
+                id: 'app-ivo-player',
+                name: 'App Ivo Player',
+                category: 'streaming',
+                price: 18.00,
+                badge: 'Licencia App',
+                badgeColor: 'bg-violet-500/10 text-violet-500 border-violet-500/20',
+                icon: 'fa-solid fa-mobile-screen-button text-violet-500',
+                bgGradient: 'from-violet-950/20 to-transparent',
+                features: ['Activación para Smart TV', 'Reproducción Fluida HD', 'Soporte Completo']
+            },
+
+            // SOFTWARE (SEPARADOS)
+            {
+                id: 'canva-anual',
+                name: 'Canva Pro',
+                category: 'software',
+                price: 20.00,
+                badge: 'Suscripción Anual',
+                badgeColor: 'bg-teal-500/10 text-teal-500 border-teal-500/20',
+                icon: 'fa-solid fa-palette text-teal-500',
+                bgGradient: 'from-teal-950/20 to-transparent',
+                features: ['1 Año de Acceso Pro', 'Plantillas & Assets Pro', 'A tu Correo Personal']
+            },
+            {
+                id: 'office-365',
+                name: 'Office 365',
+                category: 'software',
+                price: 30.00,
+                badge: 'Licencia Individual',
+                badgeColor: 'bg-blue-500/10 text-blue-500 border-blue-500/20',
+                icon: 'fa-solid fa-file-word text-blue-500',
+                bgGradient: 'from-blue-950/20 to-transparent',
+                features: ['Word, Excel, PowerPoint Pro', '1TB en OneDrive', 'Uso en Múltiples Equipos']
+            },
+            {
+                id: 'windows-license',
+                name: 'Windows 10/11',
+                category: 'software',
+                price: 30.00,
+                badge: 'Licencia Windows',
+                badgeColor: 'bg-sky-600/10 text-sky-600 border-sky-600/20',
+                icon: 'fa-brands fa-windows text-sky-600',
+                bgGradient: 'from-sky-950/20 to-transparent',
+                features: ['Activación Windows 10/11', 'Clave Original Permanente', 'Soporte de Instalación']
+            },
+
+            // VIDEOJUEGOS POPULARES
+            {
+                id: 'ea-fc-24',
+                name: 'EA Sports FC 27',
+                category: 'games',
+                price: 45.00,
+                badge: 'Juego Digital',
+                badgeColor: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
+                icon: 'fa-solid fa-gamepad text-emerald-500',
+                bgGradient: 'from-emerald-950/20 to-transparent',
+                features: ['El mejor simulador de Fútbol', 'Modo Carrera y Ultimate Team', 'Acceso Inmediato']
+            },
+            {
+                id: 'gta-v',
+                name: 'Grand Theft Auto V',
+                category: 'games',
+                price: 35.00,
+                badge: 'Juego Digital',
+                badgeColor: 'bg-purple-500/10 text-purple-500 border-purple-500/20',
+                icon: 'fa-solid fa-car-burst text-purple-500',
+                bgGradient: 'from-purple-950/20 to-transparent',
+                features: ['Modo Historia Completo', 'Acceso a GTA Online', 'Entrega Digital Segura']
+            },
+            {
+                id: 'minecraft',
+                name: 'Minecraft',
+                category: 'games',
+                price: 30.00,
+                badge: 'Licencia Digital',
+                badgeColor: 'bg-green-600/10 text-green-600 border-green-600/20',
+                icon: 'fa-solid fa-cube text-green-600',
+                bgGradient: 'from-green-950/20 to-transparent',
+                features: ['Java & Bedrock Edition', 'Juega en Servidores Oficiales', 'Acceso Permanente']
+            },
+            {
+                id: 'cod-mw3',
+                name: 'Call of Duty: MW III',
+                category: 'games',
+                price: 60.00,
+                badge: 'Juego Digital',
+                badgeColor: 'bg-red-600/10 text-red-600 border-red-600/20',
+                icon: 'fa-solid fa-crosshairs text-red-600',
+                bgGradient: 'from-red-950/20 to-transparent',
+                features: ['Campaña + Multijugador', 'Acceso Warzone', 'Soporte Directo']
+            },
+            {
+                id: 'roblox-giftcard',
+                name: 'Roblox Gift Card',
+                category: 'games',
+                price: 25.00,
+                badge: 'Código / Robux',
+                badgeColor: 'bg-slate-500/10 text-slate-400 border-slate-500/20',
+                icon: 'fa-solid fa-ticket text-rose-400',
+                bgGradient: 'from-rose-950/20 to-transparent',
+                features: ['Recarga Saldo / Robux', 'Código Digital Canjeable', 'Activación Instantánea']
+            },
+            {
+                id: 'custom-game',
+                name: 'Cualquier Videojuego',
+                category: 'games',
+                price: 0,
+                isCustom: true,
+                badge: 'Por Interno',
+                badgeColor: 'bg-amber-500/10 text-amber-500 border-amber-500/20',
+                icon: 'fa-solid fa-headset text-amber-500',
+                bgGradient: 'from-amber-950/20 to-transparent',
+                features: ['¿Buscas otro título de PC o consola?', 'Consúltanos disponibilidad por WhatsApp', 'Respuesta y cotización inmediata']
+            }
+        ];
+
+        // Theme Switch
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('gb_theme', 'light');
+                icon.className = 'fa-solid fa-sun text-lg';
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('gb_theme', 'dark');
+                icon.className = 'fa-solid fa-moon text-lg';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('gb_theme');
+            if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('theme-icon').className = 'fa-solid fa-sun text-lg';
+            }
+            renderProducts();
+            updateCartUI();
+        });
+
+        // Render Cards
+        function renderProducts(items = products) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i class="fa-solid fa-magnifying-glass text-4xl text-slate-400 mb-3"></i>
+                        <p class="text-slate-500 dark:text-slate-400">No encontramos productos con ese nombre.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            items.forEach(product => {
+                const card = document.createElement('div');
+                card.className = `glass-card rounded-3xl p-6 flex flex-col justify-between hover:border-emerald-500/50 transition-all duration-300 bg-gradient-to-b ${product.bgGradient} relative overflow-hidden group`;
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-2xl shadow-sm">
+                                <i class="${product.icon}"></i>
+                            </div>
+                            <span class="text-[11px] font-extrabold px-3 py-1 rounded-full border ${product.badgeColor}">
+                                ${product.badge}
+                            </span>
+                        </div>
+
+                        <h3 class="text-xl font-black font-heading text-slate-900 dark:text-white mb-1 group-hover:text-emerald-500 transition-colors">${product.name}</h3>
+                        <div class="flex items-baseline gap-1 mb-5">
+                            <span class="text-3xl font-black font-heading text-emerald-600 dark:text-emerald-400">
+                                ${product.isCustom ? 'Consultar' : 'S/. ' + product.price.toFixed(2)}
+                            </span>
+                        </div>
+
+                        <ul class="space-y-2.5 mb-8">
+                            ${product.features.map(f => `
+                                <li class="flex items-center gap-2.5 text-xs text-slate-600 dark:text-slate-300">
+                                    <i class="fa-solid fa-circle-check text-emerald-500 text-sm"></i>
+                                    <span>${f}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="${product.isCustom ? 'block' : 'grid grid-cols-2 gap-2'} pt-4 border-t border-slate-200 dark:border-slate-800/80">
+                        ${product.isCustom ? `
+                            <a href="https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola GREENBADBUNNY TV, deseo consultar la disponibilidad de un videojuego en específico.')}" target="_blank" class="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black rounded-2xl transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20">
+                                <i class="fa-brands fa-whatsapp text-base"></i> Consultar por WhatsApp
+                            </a>
+                        ` : `
+                            <button onclick="addToCart('${product.id}')" class="py-3 px-3 bg-slate-200/80 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold rounded-2xl transition flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-cart-plus"></i> Al Carrito
+                            </button>
+                            <button onclick="openQuickBuy('${product.id}')" class="py-3 px-3 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black rounded-2xl transition flex items-center justify-center gap-1.5 shadow-lg shadow-emerald-600/20">
+                                <i class="fa-brands fa-whatsapp text-sm"></i> Comprar
+                            </button>
+                        `}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-cat') === cat) {
+                    btn.classList.add('bg-emerald-600', 'text-white');
+                    btn.classList.remove('text-slate-600', 'dark:text-slate-400');
+                } else {
+                    btn.classList.remove('bg-emerald-600', 'text-white');
+                    btn.classList.add('text-slate-600', 'dark:text-slate-400');
+                }
+            });
+            applyFilters();
+        }
+
+        function searchAccounts() {
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filtered = products.filter(p => {
+                const matchesCat = currentCategory === 'all' || p.category === currentCategory;
+                const matchesQuery = p.name.toLowerCase().includes(query);
+                return matchesCat && matchesQuery;
+            });
+            renderProducts(filtered);
+        }
+
+        // Cart Actions
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product.isCustom) return;
+            
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            saveCart();
+            showToast(`¡${product.name} añadido al carrito!`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveCart();
+        }
+
+        function updateQuantity(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    saveCart();
+                }
+            }
+        }
+
+        function saveCart() {
+            localStorage.setItem('gb_cart_v2', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cart-badge');
+            const mobileBadge = document.getElementById('mobile-cart-badge');
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            if (totalItems > 0) {
+                badge.innerText = totalItems;
+                badge.classList.remove('hidden');
+                mobileBadge.innerText = totalItems;
+                mobileBadge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+                mobileBadge.classList.add('hidden');
+            }
+
+            cartTotal.innerText = `S/. ${totalPrice.toFixed(2)}`;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-12 text-slate-400">
+                        <i class="fa-solid fa-cart-flatbed text-4xl mb-3"></i>
+                        <p class="text-sm">Tu carrito está vacío.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            cartItemsContainer.innerHTML = cart.map(item => `
+                <div class="bg-slate-100 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
+                    <div class="flex-grow">
+                        <h4 class="text-sm font-bold text-slate-900 dark:text-white">${item.name}</h4>
+                        <p class="text-xs text-emerald-600 dark:text-emerald-400 font-extrabold">S/. ${(item.price * item.quantity).toFixed(2)}</p>
+                    </div>
+                    <div class="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl px-2.5 py-1">
+                        <button onclick="updateQuantity('${item.id}', -1)" class="text-slate-500 hover:text-slate-900 dark:hover:text-white px-1 font-bold">-</button>
+                        <span class="text-xs font-black text-slate-900 dark:text-white px-1">${item.quantity}</span>
+                        <button onclick="updateQuantity('${item.id}', 1)" class="text-slate-500 hover:text-slate-900 dark:hover:text-white px-1 font-bold">+</button>
+                    </div>
+                    <button onclick="removeFromCart('${item.id}')" class="text-slate-400 hover:text-rose-500 transition p-1">
+                        <i class="fa-solid fa-trash-can text-sm"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function toggleCartDrawer() {
+            document.getElementById('cart-drawer').classList.toggle('hidden');
+        }
+
+        function sendCartToWhatsApp() {
+            if (cart.length === 0) {
+                showToast('Tu carrito está vacío.', 'error');
+                return;
+            }
+
+            let message = `*¡Hola GREENBADBUNNY TV! Quiero realizar el siguiente pedido:*\n\n`;
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                message += `${index + 1}. *${item.name}*\n   • Cantidad: ${item.quantity}\n   • Subtotal: S/. ${subtotal.toFixed(2)}\n\n`;
+            });
+
+            message += `*TOTAL A PAGAR:* S/. ${total.toFixed(2)}\n\n`;
+            message += `Por favor, confírmenme el pedido para proceder con la compra. ¡Gracias!`;
+
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        function openQuickBuy(productId) {
+            const product = products.find(p => p.id === productId);
+            const content = document.getElementById('quick-buy-content');
+
+            const message = `Hola *GREENBADBUNNY TV*, deseo comprar *${product.name}* por *S/. ${product.price.toFixed(2)}*. ¿Me ayudan a completar mi compra por favor?`;
+            const directUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+            content.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 rounded-3xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 flex items-center justify-center text-3xl mx-auto mb-3">
+                        <i class="${product.icon}"></i>
+                    </div>
+                    <h3 class="text-xl font-black font-heading text-slate-900 dark:text-white">${product.name}</h3>
+                    <p class="text-3xl font-black font-heading text-emerald-600 dark:text-emerald-400 mt-1">S/. ${product.price.toFixed(2)}</p>
+                </div>
+
+                <div class="bg-slate-100 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 mb-6 space-y-1.5">
+                    <p class="font-bold text-slate-900 dark:text-white">Mensaje directo para WhatsApp:</p>
+                    <p class="italic text-slate-500 dark:text-slate-400">"${message}"</p>
+                </div>
+
+                <div class="space-y-3">
+                    <a href="${directUrl}" target="_blank" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-2xl transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 text-sm">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Abrir WhatsApp para Comprar
+                    </a>
+                    <button onclick="addToCart('${product.id}'); closeQuickBuyModal();" class="w-full py-3 bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 text-slate-800 dark:text-slate-200 font-bold rounded-2xl text-xs transition">
+                        Añadir al carrito y seguir viendo
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('quick-buy-modal').classList.remove('hidden');
+        }
+
+        function closeQuickBuyModal() {
+            document.getElementById('quick-buy-modal').classList.add('hidden');
+        }
+
+        function showToast(msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            const text = document.getElementById('toast-message');
+
+            text.innerText = msg;
+            if (type === 'error') {
+                icon.className = 'fa-solid fa-circle-exclamation text-rose-400 text-lg';
+            } else {
+                icon.className = 'fa-solid fa-circle-check text-emerald-400 text-lg';
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
